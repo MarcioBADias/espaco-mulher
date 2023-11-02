@@ -1,10 +1,43 @@
-[data-js="root"] {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1{
-  color: #006eff;
+:root {
+  --cor-1: #483d8b;
+  --cor-2: #6a5acd;
+  --cor-3: #7b68ee;
+  --cor-4: #ffe4c4;
+}
+
+header {
+  align-items: center;
+  background: var(--cor-1);
+  color: var(--cor-4);
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+header img {
+  width: 100px;
+}
+
+form,
+footer {
+  align-items: center;
+  background: var(--cor-2);
+  color: #ffffff;
+  display: flex;
+  gap: 1rem;
+  height: 10vh;
+  justify-content: center;
+}
+
+.container {
+  background: var(--cor-4);
+  min-height: 60vh;
 }
