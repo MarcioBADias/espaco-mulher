@@ -37,7 +37,40 @@ footer {
   justify-content: center;
 }
 
-.container {
+form select,
+input,
+button {
+  background: var(--cor-3);
+  border: none;
+  border-radius: 5px;
+  color: #ffff;
+  padding: 0.5rem;
+}
+
+form input::placeholder {
+  color: #ffffff;
+}
+
+form button {
+  background: red;
+  font-weight: bold;
+}
+
+ul {
   background: var(--cor-4);
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
   min-height: 60vh;
+  padding-top: 1rem;
+}
+
+li {
+  list-style: none;
+}
+
+li,
+input,
+label {
+  margin-right: 1rem;
 }
