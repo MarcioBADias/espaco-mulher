@@ -59,6 +59,7 @@ form button {
 ul {
   background: var(--cor-4);
   display: flex;
+  flex-wrap: wrap;
   gap: 3rem;
   justify-content: center;
   min-height: 60vh;
@@ -73,4 +74,12 @@ li,
 input,
 label {
   margin-right: 1rem;
+}
+
+li span {
+  cursor: pointer;
+}
+
+.checked-item {
+  text-decoration: line-through;
 }
