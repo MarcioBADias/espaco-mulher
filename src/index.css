@@ -37,7 +37,7 @@ footer {
   justify-content: center;
 }
 
-form select,
+select,
 input,
 button {
   background: var(--cor-3);
@@ -52,7 +52,8 @@ form input::placeholder {
 }
 
 form button {
-  background: red;
+  background: rgb(255, 0, 76);
+  cursor: pointer;
   font-weight: bold;
 }
 
@@ -82,4 +83,18 @@ li span {
 
 .checked-item {
   text-decoration: line-through;
+}
+
+.container {
+  background: var(--cor-4);
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.container button {
+  background: orangered;
+  cursor: pointer;
+  font-weight: bold;
 }

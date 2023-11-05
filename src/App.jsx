@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+const options = Array.from({ length: 20 }, (_, i) => i++)
 
 const Menu = ({ amount, title, onFormSubmit, AmountChange, TitleChange }) => {
   return (
@@ -29,10 +29,14 @@ const Menu = ({ amount, title, onFormSubmit, AmountChange, TitleChange }) => {
   )
 }
 
-const List = ({ itens, setItens }) => {
-  const [checked, setChecked] = useState(false)
+const List = ({ itens, setItens, filter }) => {
+  const [checked, setChecked] = useState(Array(itens.length).fill(false))
 
-  const handleCheckboxChange = () => setChecked(i => !i)
+  const handleCheckboxChange = i => {
+    const updateCheked = [...checked]
+    updateCheked[i] = !updateCheked[i]
+    setChecked(updateCheked)
+  }
 
   const handleDeleteItens = i => {
     const uptadeItens = [...itens]
@@ -40,17 +44,25 @@ const List = ({ itens, setItens }) => {
     setItens(uptadeItens)
   }
 
+  let filteredItens = [...itens]
+
+  if (filter === 'guardados') {
+    filteredItens = filteredItens.filter((_, i) => checked[i])
+  } else if (filter === 'alfabetica') {
+    filteredItens = filteredItens.sort((a, b) => a.title.localeCompare(b.title))
+  }
+
   return (
     <ul>
-      {itens.map((item, i) => (
+      {filteredItens.map((item, i) => (
         <li key={i}>
           <input
             type="checkbox"
             name=""
-            checked={checked}
-            onChange={handleCheckboxChange}
+            checked={checked[i]}
+            onChange={() => handleCheckboxChange(i)}
           />
-          <label className={checked ? 'checked-item' : ''}>{item.amount} {item.title}</label>
+          <label className={checked[i] ? 'checked-item' : ''}>{item.amount} {item.title}</label>
           <span onClick={() => handleDeleteItens(i)}>❌</span>
         </li>
       ))}
@@ -62,6 +74,7 @@ const App = () => {
   const [itens, setItens] = useState([])
   const [amount, setAmount] = useState('')
   const [title, setTitle] = useState('')
+  const [filter, setFilter] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -72,6 +85,8 @@ const App = () => {
 
   const handleAmountChange = (e) => setAmount(e.target.value)
   const handleTitleChange = (e) => setTitle(e.target.value)
+  const handleFilterChange = (e) => setFilter(e.target.value)
+  const handleClearListItens = () => setItens([])
 
   return (
     <>
@@ -86,9 +101,19 @@ const App = () => {
         AmountChange={handleAmountChange}
         TitleChange={handleTitleChange}
       />
-      <List itens={itens} setItens={setItens} />
+      <List itens={itens} setItens={setItens} filter={filter} />
+      <div className="container">
+        <select name="filter" onChange={handleFilterChange}>
+          <option value="">Ordenar por mais recentes</option>
+          <option value="guardados">Mostrar Guardados</option>
+          <option value="alfabetica">Ordem alfabética</option>
+        </select>
+        <button onClick={handleClearListItens}>Limpar lista</button>
+      </div>
       <footer>
-        {`Você tem ${itens.length} itens na lista`}
+        {
+          `Você tem ${itens.length} itens na lista`
+        }
       </footer>
     </>
   )
